@@ -74,7 +74,7 @@ const Login = () => {
         <form className="mt-8 space-y-6" onSubmit={handleSubmit} noValidate>
           <div className="space-y-4">
             <div>
-              <label-[for="email"] className="block text-sm font-medium text-gray-700 dark:text-gray-300">Email address</label-[for="email"]>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Email address</label>
               <input
                 id="email"
                 name="email"
@@ -90,7 +90,7 @@ const Login = () => {
             </div>
 
             <div>
-              <label-[for="password"] className="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label-[for="password"]>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
               <input
                 id="password"
                 name="password"

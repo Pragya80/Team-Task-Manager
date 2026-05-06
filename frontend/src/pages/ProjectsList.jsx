@@ -124,7 +124,7 @@ const ProjectsList = () => {
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Create New Project">
         <form onSubmit={handleCreateProject} className="space-y-4">
           <div>
-            <label-[for="name"] className="block text-sm font-medium text-gray-700 dark:text-gray-300">Project Name</label-[for="name"]>
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Project Name</label>
             <input
               id="name"
               type="text"
@@ -137,7 +137,7 @@ const ProjectsList = () => {
             />
           </div>
           <div>
-            <label-[for="description"] className="block text-sm font-medium text-gray-700 dark:text-gray-300">Description (Optional)</label-[for="description"]>
+            <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Description (Optional)</label>
             <textarea
               id="description"
               rows={3}
