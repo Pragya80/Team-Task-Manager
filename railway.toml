@@ -1,0 +1,8 @@
+[build]
+builder = "NIXPACKS"
+watchPatterns = ["backend/**"]
+
+[deploy]
+startCommand = "node backend/src/server.js"
+healthcheckPath = "/api/v1/health"
+restartPolicyType = "ON_FAILURE"
