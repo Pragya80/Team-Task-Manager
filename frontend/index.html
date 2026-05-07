@@ -5,6 +5,29 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>frontend</title>
+    <script>
+      // Determine the backend API URL at runtime so the frontend works
+      // correctly in production without needing a rebuild per deployment.
+      // Priority: explicit VITE_API_URL (dev) → derived from window.location (prod)
+      window.__RUNTIME_CONFIG__ = {
+        apiUrl: (function () {
+          // In development Vite replaces import.meta.env values at build time,
+          // but we also expose the value here so the runtime path can read it.
+          var buildTimeUrl = '__VITE_API_URL__'; // replaced by Vite define if set
+          if (buildTimeUrl && buildTimeUrl !== '__VITE_API_URL__') {
+            return buildTimeUrl;
+          }
+          // In production, derive the backend domain from the current hostname.
+          // The backend service (Team-Task-Manager) is served on port 3000 and
+          // shares the same public domain root as the frontend.
+          var hostname = window.location.hostname;
+          if (hostname === 'localhost' || hostname === '127.0.0.1') {
+            return 'http://localhost:3000/api/v1';
+          }
+          return 'https://' + hostname + '/api/v1';
+        })(),
+      };
+    </script>
   </head>
   <body>
     <div id="root"></div>
