@@ -28,7 +28,7 @@ const App = () => {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      
+
       <Route element={<PrivateRoute />}>
         <Route element={<Layout />}>
           <Route path="/projects" element={<ProjectsList />} />
@@ -38,7 +38,7 @@ const App = () => {
           <Route path="/projects/:id/settings" element={<Settings />} />
         </Route>
       </Route>
-      
+
       <Route path="/" element={<Navigate to="/projects" replace />} />
       <Route path="*" element={
         <div className="flex h-screen flex-col items-center justify-center p-8 text-center">
