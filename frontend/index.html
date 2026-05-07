@@ -6,20 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>frontend</title>
     <script>
-      // Determine the backend API URL at runtime so the frontend works
-      // correctly in production without needing a rebuild per deployment.
-      // Priority: explicit VITE_API_URL (dev) → derived from window.location (prod)
+      // Determine the backend API URL at runtime.
+      // Priority:
+      //  1. VITE_API_URL env var (set to the backend's public domain at build
+      //     time, e.g. https://team-task-manager.railway.app/api/v1). This is
+      //     the correct path for production where the frontend and backend are
+      //     deployed on separate public domains.
+      //  2. Derived from window.location.hostname — only used as a fallback
+      //     when VITE_API_URL is not set (e.g. local development without the
+      //     env var configured).
       window.__RUNTIME_CONFIG__ = {
         apiUrl: (function () {
-          // In development Vite replaces import.meta.env values at build time,
-          // but we also expose the value here so the runtime path can read it.
-          var buildTimeUrl = '__VITE_API_URL__'; // replaced by Vite define if set
+          // __VITE_API_URL__ is replaced at build time by Vite's define plugin
+          // with the value of the VITE_API_URL environment variable. If the
+          // variable was not set during the build, it becomes an empty string.
+          var buildTimeUrl = '__VITE_API_URL__';
           if (buildTimeUrl && buildTimeUrl !== '__VITE_API_URL__') {
             return buildTimeUrl;
           }
-          // In production, derive the backend domain from the current hostname.
-          // The backend service (Team-Task-Manager) is served on port 3000 and
-          // shares the same public domain root as the frontend.
+          // Fallback: derive the API URL from the current hostname. This only
+          // applies when VITE_API_URL was not provided at build time. Note that
+          // in production the frontend and backend run on different domains, so
+          // VITE_API_URL should always be set to avoid hitting this path.
           var hostname = window.location.hostname;
           if (hostname === 'localhost' || hostname === '127.0.0.1') {
             return 'http://localhost:3000/api/v1';
