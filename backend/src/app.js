@@ -44,6 +44,14 @@ const generalLimiter = rateLimit({
 app.use('/api/v1/auth', authLimiter);
 app.use('/api/', generalLimiter);
 
+// Health check route for Railway
+app.get('/api/v1/health', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Server is running'
+  });
+});
+
 // API Routes
 app.use('/api/v1', routes);
 
