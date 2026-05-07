@@ -1,109 +1,183 @@
-# Team Task Manager
+================================================================================
+                           TEAM TASK MANAGER
+================================================================================
 
-A full-stack, production-ready MVP for a team-based project management tool. Built without ORMs or microservices, focusing on raw SQL performance and a clean, responsive React frontend.
+A full-stack collaborative project and task management platform built for teams 
+to organize projects, assign tasks, and track progress efficiently.
 
-## Features
+--------------------------------------------------------------------------------
+🚀 LIVE DEMO
+--------------------------------------------------------------------------------
+Frontend Web App:
+https://dynamic-prosperity-production-3c18.up.railway.app
 
-- **Authentication**: Secure JWT-based authentication using HTTP Bearer tokens and bcrypt password hashing.
-- **Project Management**: Create projects and assign members with role-based access control (`admin` and `member`).
-- **Task Tracking**: Create, assign, and manage tasks. Members can only update the status of tasks assigned to them, while admins have full control.
-- **Advanced Filtering**: Filter tasks by status, assignee, or overdue state via dynamic SQL queries.
-- **Dashboard Aggregations**: PostgreSQL-powered single-pass aggregations for high-performance dashboard statistics.
-- **Rich UI**: Responsive, glassmorphism-inspired design using Tailwind CSS v4, Lucide React icons, and custom components.
+Backend API:
+https://team-task-manager-production-e16f.up.railway.app/api/v1
 
-## Tech Stack
 
-**Backend**
-- Node.js 20 LTS
-- Express.js 4
-- PostgreSQL 16 (Raw SQL via `pg` driver)
-- JSON Web Tokens (jsonwebtoken) + bcrypt
-- express-validator, morgan, cors
+--------------------------------------------------------------------------------
+📌 PROJECT OVERVIEW
+--------------------------------------------------------------------------------
+Team Task Manager is a modern project collaboration platform where teams can:
+ - Create and manage projects
+ - Assign tasks to specific members
+ - Track task progress in real-time
+ - Manage team roles (Admin / Member)
+ - Monitor dashboards for overall progress and overdue tasks
+ - Collaborate securely using JWT authentication
 
-**Frontend**
-- React 18
-- Vite
-- React Router v6
-- Tailwind CSS v4
-- Axios
-- Lucide React (Icons)
+The application uses a strict role-based access control (RBAC) system to ensure 
+only authorized users can manage projects and tasks.
 
-## Prerequisites
 
-- Node.js (v20+ recommended)
-- PostgreSQL (v16+ recommended)
+--------------------------------------------------------------------------------
+✨ CORE FEATURES
+--------------------------------------------------------------------------------
+🔐 Authentication & Security:
+ - Secure User Signup & Login
+ - JWT-based authentication
+ - Protected API routes
+ - Password hashing
+ - Environment variable protection
 
-## Setup Instructions
+👥 Role-Based Access Control:
+ [Admin]
+  - Create and manage projects
+  - Add/remove team members
+  - Assign roles to members
+  - Create and manage tasks
+ [Member]
+  - View assigned projects
+  - Update the status of assigned tasks
+  - Access analytics dashboards
 
-### 1. Database Initialization
-1. Ensure PostgreSQL is running.
-2. Create a new database: `CREATE DATABASE team_tasks;`
-3. In the `/backend` directory, create a `.env` file with your connection string:
-   ```env
-   PORT=3000
-   DATABASE_URL=postgres://user:password@localhost:5432/team_tasks
-   JWT_SECRET=your_super_secret_key_change_me
-   FRONTEND_URL=http://localhost:5173
-   ```
-4. Run the migration script to scaffold the database tables:
-   ```bash
-   cd backend
-   npm run migrate
-   ```
+📁 Project Management:
+ - Create new projects
+ - Edit or Delete projects
+ - Manage project members
+ - Track overall project progress
 
-### 2. Running the Backend
-```bash
-cd backend
-npm install
-npm run dev
-```
-The server will start on `http://localhost:3000`.
+✅ Task Management:
+ - Create tasks and assign them to team members
+ - Update task status: [TODO] -> [IN_PROGRESS] -> [DONE]
+ - Filter tasks easily
+ - Track and highlight overdue tasks
 
-### 3. Running the Frontend
-1. In the `/frontend` directory, create a `.env` file:
-   ```env
-   VITE_API_URL=http://localhost:3000/api/v1
-   ```
-2. Start the Vite development server:
-   ```bash
-   cd frontend
-   npm install
-   npm run dev
-   ```
-The frontend will be available at `http://localhost:5173`.
+📊 Dashboard:
+ - Task analytics and metrics
+ - Progress overview charts
+ - Overdue task tracking
+ - Project summaries
 
-## API Endpoints Overview
 
-### Auth
-- `POST /api/v1/auth/register` - Register a new user
-- `POST /api/v1/auth/login` - Authenticate and receive a JWT
+--------------------------------------------------------------------------------
+🛠️ TECH STACK
+--------------------------------------------------------------------------------
+- Frontend: React.js, Vite, Tailwind CSS
+- Backend: Node.js, Express.js
+- Database: PostgreSQL (Managed via 'pg' library)
+- Deployment: Railway (Frontend, Backend, and Database)
 
-### Projects
-- `GET /api/v1/projects` - Get all projects for the authenticated user
-- `POST /api/v1/projects` - Create a new project
-- `GET /api/v1/projects/:id` - Get project details and members [Requires Member]
-- `PUT /api/v1/projects/:id` - Update project details [Requires Admin]
-- `DELETE /api/v1/projects/:id` - Delete project (cascading) [Requires Admin]
 
-### Team
-- `GET /api/v1/projects/:id/members` - List project members [Requires Member]
-- `POST /api/v1/projects/:id/members` - Add a user to the project [Requires Admin]
-- `PATCH /api/v1/projects/:id/members/:userId/role` - Update member role [Requires Admin]
-- `DELETE /api/v1/projects/:id/members/:userId` - Remove member [Requires Admin]
+--------------------------------------------------------------------------------
+📂 PROJECT STRUCTURE
+--------------------------------------------------------------------------------
+Team-Task-Manager/
+│
+├── backend/
+│   ├── src/
+│   ├── scripts/
+│   ├── package.json
+│   └── railway.toml
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   └── package.json
+│
+└── README.txt
 
-### Tasks
-- `GET /api/v1/projects/:id/tasks` - List tasks with optional `status`, `assignee`, and `overdue` filters [Requires Member]
-- `POST /api/v1/projects/:id/tasks` - Create a task [Requires Admin]
-- `GET /api/v1/projects/:id/tasks/:taskId` - Get specific task [Requires Member]
-- `PUT /api/v1/projects/:id/tasks/:taskId` - Update task details [Requires Admin]
-- `PATCH /api/v1/projects/:id/tasks/:taskId/status` - Update task status [Requires Member/Assigned]
-- `DELETE /api/v1/projects/:id/tasks/:taskId` - Delete task [Requires Admin]
 
-### Dashboard
-- `GET /api/v1/projects/:id/dashboard` - Get aggregated stats and overdue list [Requires Member]
+--------------------------------------------------------------------------------
+🖥️ LOCAL SETUP INSTRUCTIONS
+--------------------------------------------------------------------------------
+1️⃣ Clone Repository:
+    git clone https://github.com/Pragya80/Team-Task-Manager.git
+    cd Team-Task-Manager
 
-## Deployment
+2️⃣ Backend Setup:
+    cd backend
+    npm install
+    
+    # Create a .env file based on the environment variables below
+    npm run migrate
+    npm start
+    
+    (Backend will run on http://localhost:3000)
 
-The repository is configured for easy deployment:
-- **Backend**: Contains a `railway.toml` optimized for deployment on Railway via the Nixpacks builder.
-- **Frontend**: A static Vite build that can be easily connected to Vercel, Netlify, or Railway static hosting. Ensure `VITE_API_URL` is configured in the production environment.
+3️⃣ Frontend Setup:
+    cd frontend
+    npm install
+    npm run dev
+    
+    (Frontend will run on http://localhost:5173)
+
+
+--------------------------------------------------------------------------------
+⚙️ ENVIRONMENT VARIABLES
+--------------------------------------------------------------------------------
+[Backend .env]
+PORT=3000
+DATABASE_URL=your_postgresql_connection_url
+JWT_SECRET=your_secret_key
+FRONTEND_URL=http://localhost:5173
+
+[Frontend .env]
+VITE_API_URL=http://localhost:3000/api/v1
+
+
+--------------------------------------------------------------------------------
+📡 API ENDPOINTS
+--------------------------------------------------------------------------------
+[Authentication]
+POST    /api/v1/auth/register                   Register user
+POST    /api/v1/auth/login                      Login user
+
+[Projects]
+GET     /api/v1/projects                        Get projects
+POST    /api/v1/projects                        Create project
+GET     /api/v1/projects/:id                    Get project details
+PUT     /api/v1/projects/:id                    Update project
+DELETE  /api/v1/projects/:id                    Delete project
+
+[Team Members]
+GET     /api/v1/projects/:id/members            Get members
+POST    /api/v1/projects/:id/members            Add member
+PATCH   /api/v1/projects/:id/members/:userId/role Update role
+DELETE  /api/v1/projects/:id/members/:userId    Remove member
+
+[Tasks]
+GET     /api/v1/projects/:id/tasks              Get tasks
+POST    /api/v1/projects/:id/tasks              Create task
+PUT     /api/v1/projects/:id/tasks/:taskId      Update task
+PATCH   /api/v1/projects/:id/tasks/:taskId/status Update status
+DELETE  /api/v1/projects/:id/tasks/:taskId      Delete task
+
+
+--------------------------------------------------------------------------------
+🚀 DEPLOYMENT FEATURES
+--------------------------------------------------------------------------------
+The application is deployed on Railway featuring:
+ - Automatic redeploys on GitHub push
+ - Centralized environment variable management
+ - Public networking with generated domains
+ - Automatic health checks (/api/v1/health)
+ - Persistent PostgreSQL storage
+
+
+--------------------------------------------------------------------------------
+👩‍💻 AUTHOR
+--------------------------------------------------------------------------------
+Pragya Singh
+GitHub Repository: https://github.com/Pragya80/Team-Task-Manager
+================================================================================
